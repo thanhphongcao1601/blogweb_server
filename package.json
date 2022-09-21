@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "startDev": "nodemon server.js",
@@ -19,5 +18,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanhphongcao1601/blogweb_server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thanhphongcao1601/blogweb_server/issues"
+  },
+  "homepage": "https://github.com/thanhphongcao1601/blogweb_server#readme",
+  "description": ""
 }

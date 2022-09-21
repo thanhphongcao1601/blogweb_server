@@ -15,6 +15,29 @@ exports.register = async (req, res, next) => {
   }
 };
 
+exports.updateUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { ...req.body },
+      { new: true, runValidator: true }
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        userName: user.name,
+        userId: user._id,
+        avatarLink: user.avatarLink,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -29,7 +52,13 @@ exports.login = async (req, res, next) => {
       const token = jwt.sign({ userId: user._id }, process.env.APP_SECRET);
       res.status(200).json({
         status: "success",
-        data: { token, userName: user.name, userId: user._id },
+        data: {
+          token,
+          userName: user.name,
+          userId: user._id,
+          avatarLink: user.avatarLink,
+          email: user.email,
+        },
       });
     } else {
       //error: Password is not correct

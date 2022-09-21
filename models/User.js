@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Password must be required"],
     },
+    avatarLink: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

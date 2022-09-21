@@ -37,14 +37,21 @@ exports.updateOnePost = async (req, res, next) => {
   try {
     const { postId } = req.params;
 
-    const post = await Post.findByIdAndUpdate(
+    await Post.findByIdAndUpdate(
       postId,
       { ...req.body },
       { new: true, runValidator: true }
     );
+
+    const postRespone = await Post.findById(postId)
+      .populate("author", "name")
+      .populate({
+        path: "comments",
+        populate: { path: "author", select: "name" },
+      });
     res.status(200).json({
       status: "success",
-      data: post,
+      data: postRespone,
     });
   } catch (error) {
     next(error);
@@ -58,7 +65,7 @@ exports.commentPost = async (req, res, next) => {
     const comment = await Comment.create({ ...req.body, author: userId });
     const { postId } = req.params;
 
-    const post = await Post.findByIdAndUpdate(
+    await Post.findByIdAndUpdate(
       postId,
       { $push: { comments: comment._id } },
       { new: true, runValidator: true }
