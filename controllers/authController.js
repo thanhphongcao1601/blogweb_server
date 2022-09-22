@@ -56,7 +56,7 @@ exports.login = async (req, res, next) => {
           token,
           userName: user.name,
           userId: user._id,
-          avatarLink: user.avatarLink,
+          avatarLink: user.avatarLink ?? "",
           email: user.email,
         },
       });
