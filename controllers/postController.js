@@ -7,7 +7,7 @@ exports.getAllPosts = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",
@@ -28,7 +28,7 @@ exports.createOnePost = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",
@@ -53,7 +53,7 @@ exports.updateOnePost = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",
@@ -81,7 +81,7 @@ exports.commentPost = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",
@@ -112,7 +112,7 @@ exports.getOnePost = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
 
     res.status(200).json({
@@ -131,7 +131,7 @@ exports.searchPostByTitle = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",
@@ -153,7 +153,7 @@ exports.filterPost = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",
@@ -174,7 +174,7 @@ exports.getPostByAuthorId = async (req, res, next) => {
       .populate("author", ["name", "avatarLink"])
       .populate({
         path: "comments",
-        populate: { path: "author", select: "name" },
+        populate: { path: "author", select: ["name", "avatarLink"] },
       });
     res.status(200).json({
       status: "success",

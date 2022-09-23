@@ -70,3 +70,61 @@ exports.login = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.changePassword = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      //email not correct
+      const err = new Error("Email is not correct");
+      err.statusCode = 400;
+      return next(err);
+    }
+
+    if (bcrypt.compareSync(req.body.password, user.password)) {
+      const newPasswordHash = await bcrypt.hash(req.body.newPassword, 10);
+      const userUpdate = await User.findByIdAndUpdate(
+        user.id,
+        { password: newPasswordHash },
+        { new: true, runValidator: true }
+      );
+      res.status(200).json({
+        status: "success",
+        data: {
+          userName: userUpdate.name,
+          userId: userUpdate._id,
+          avatarLink: userUpdate.avatarLink ?? "",
+          email: userUpdate.email,
+        },
+      });
+    } else {
+      //error: Password is not correct
+      const err = new Error("Password is not correct");
+      err.statusCode = 400;
+      return next(err);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getUserInfo = async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  if (!user) {
+    //email not correct
+    const err = new Error("Email is not correct");
+    err.statusCode = 400;
+    return next(err);
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      userName: user.name,
+      userId: user._id,
+      avatarLink: user.avatarLink ?? "",
+      email: user.email,
+    },
+  });
+};
