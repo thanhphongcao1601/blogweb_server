@@ -27,7 +27,6 @@ app.all("*", (req, res, next) => {
 });
 app.use(errorHandler);
 
-const PORT = process.env.APP_PORT;
 const URI = process.env.DB_URI;
 try {
   mongoose.connect(
@@ -39,7 +38,7 @@ try {
     (err) => {
       if (err) throw err;
       console.log("CONNECTED TO MONGODB");
-      app.listen(PORT || 3000, () => {
+      app.listen(process.env.PORT || 8000, () => {
         console.log("Server is running");
       });
     }
