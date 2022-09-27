@@ -39,7 +39,7 @@ try {
     (err) => {
       if (err) throw err;
       console.log("CONNECTED TO MONGODB");
-      app.listen(PORT, () => {
+      app.listen(PORT || 3000, () => {
         console.log("Server is running");
       });
     }
